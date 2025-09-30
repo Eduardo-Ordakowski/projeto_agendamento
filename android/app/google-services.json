@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "241454201811",
+    "project_id": "projeto-agendamento-dee01",
+    "storage_bucket": "projeto-agendamento-dee01.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241454201811:android:9ee7525955324820dfcd26",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241454201811-6g2bm8pv4acf8nrc83fttui69gq97ngm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_QVwbGzuskdjceH5o-mSzQk-LaLeDiVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241454201811-6g2bm8pv4acf8nrc83fttui69gq97ngm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241454201811:android:d3ba217862d1419ddfcd26",
+        "android_client_info": {
+          "package_name": "com.example.projeto_agendamento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241454201811-6g2bm8pv4acf8nrc83fttui69gq97ngm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_QVwbGzuskdjceH5o-mSzQk-LaLeDiVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241454201811-6g2bm8pv4acf8nrc83fttui69gq97ngm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
