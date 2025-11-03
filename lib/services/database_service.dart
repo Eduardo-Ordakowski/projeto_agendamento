@@ -1,5 +1,7 @@
-import 'package:sqflite/sqflite.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import '../model/user_model.dart';
 
 class DatabaseService {
@@ -8,17 +10,39 @@ class DatabaseService {
 
   factory DatabaseService() {
     return _instance;
+  } 
+
+  DatabaseService._internal() {
+    if (!kIsWeb) {
+      try {
+        if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+          sqfliteFfiInit();
+          databaseFactory = databaseFactoryFfi;
+        }
+      } catch (e) {
+        debugPrint('Erro ao inicializar SQLite: $e');
+      }
+    }
   }
 
-  DatabaseService._internal();
-
-  Future<Database> get database async {
+  Future<Database?> get database async {
+    if (kIsWeb) {
+      debugPrint('SQLite não disponível no Web - operação ignorada');
+      return null;
+    }
+    
     if (_database != null) return _database!;
-    _database = await _initDatabase();
-    return _database!;
+    
+    try {
+      _database = await _initDatabase();
+      return _database;
+    } catch (e) {
+      debugPrint('Erro ao inicializar banco: $e');
+      return null;
+    }
   }
 
-  Future<Database> _initDatabase() async {
+    Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), 'agendamento.db');
 
     return await openDatabase(
@@ -76,40 +100,80 @@ class DatabaseService {
   }
 
   Future<void> insertUser(UserModel user) async {
-    final db = await database;
-    await db.insert(
-      'users',
-      user.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    if (kIsWeb) {
+      debugPrint('SQLite não disponível no Web - operação ignorada');
+      return;
+    }
+    
+    try {
+      final db = await database;
+      if (db == null) return;
+      
+      await db.insert(
+        'users',
+        user.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      debugPrint('Usuário salvo no SQLite');
+    } catch (e) {
+      debugPrint('Erro ao salvar no SQLite (ignorado): $e');
+    }
   }
 
     Future<UserModel?> getUser(String id) async {
+    if (kIsWeb) {
+      debugPrint('SQLite não disponível no Web');
+      return null;
+    }
+    
+    try {
       final db = await database;
+      if (db == null) return null;
+      
       final List<Map<String, dynamic>> maps = await db.query(
         'users',
         where: 'id = ?',
         whereArgs: [id],
       );
       
-      if(maps.isEmpty) return null;
+      if (maps.isEmpty) return null;
       return UserModel.fromMap(maps.first);
+    } catch (e) {
+      debugPrint('Erro ao buscar no SQLite: $e');
+      return null;
     }
+  }
 
-    Future<void> deleteUser(String id) async {
+  Future<void> deleteUser(String id) async {
+    if (kIsWeb) return;
+    
+    try {
       final db = await database;
+      if (db == null) return;
+      
       await db.delete(
         'users',
         where: 'id = ?',
         whereArgs: [id],
       );
+    } catch (e) {
+      debugPrint('Erro ao deletar do SQLite: $e');
     }
+  }
 
-    Future<void> clearAllData() async {
+  Future<void> clearAllData() async {
+    if (kIsWeb) return;
+    
+    try {
       final db = await database;
+      if (db == null) return;
+      
       await db.delete('users');
       await db.delete('atendentes');
       await db.delete('servicos');
       await db.delete('agendamentos');
+    } catch (e) {
+      debugPrint('Erro ao limpar dados: $e');
     }
   }
+}

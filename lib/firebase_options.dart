@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'projeto-agendamento-dee01.firebasestorage.app',
     measurementId: 'G-7C82NFZ5DN',
   );
+
 }
