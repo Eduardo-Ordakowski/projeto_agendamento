@@ -16,7 +16,7 @@ class AtendenteModel {
       id: map['id'] as String,
       nome: map['nome'] as String,
       especialidade: map['especialidade'] as String?,
-      ativo: map['ativo'] == 1,
+      ativo: map['ativo'] == true || map['ativo'] == 1,
     );
   }
 
@@ -25,7 +25,7 @@ class AtendenteModel {
       'id': id,
       'nome': nome,
       'especialidade': especialidade,
-      'ativo': ativo ? 1 : 0,
+      'ativo': ativo == true ? true : false,
     };
   }
 
