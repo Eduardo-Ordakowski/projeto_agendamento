@@ -33,6 +33,22 @@ class AtendenteService {
     }
   }
 
+  Stream<List<AtendenteModel>> getAllAtendentes() {
+    try {
+      return _firestore
+        .collection(_collection)
+        .orderBy('nome')
+        .snapshots()
+        .map((snapshot){
+          return snapshot.docs.map((doc) {
+            return AtendenteModel.fromMap(doc.data());
+          }).toList();
+        });
+    } catch (e) {
+      throw Exception('Erro ao buscar atendentes: $e');
+    }
+  }
+  
   Stream<List<AtendenteModel>> getAtendentesAtivos() {
     try {
       return _firestore
