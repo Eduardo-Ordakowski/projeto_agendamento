@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_agendamento/model/user_model.dart';
 import 'package:projeto_agendamento/screens/atendentes/atendente_list_screen.dart';
+import 'package:projeto_agendamento/screens/servicos/servico_list_screen.dart';
 import 'package:projeto_agendamento/services/auth_service.dart';
 import '../auth/login_screen.dart';
 
@@ -111,8 +112,11 @@ class HomeScreen extends StatelessWidget {
                 subtitle: Text('Gerenciar serviços'),
                 trailing: Icon(Icons.arrow_forward_ios),
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Em desenvolvimento...')),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ServicoListScreen(),
+                    )
                   );
                 },
               ),
