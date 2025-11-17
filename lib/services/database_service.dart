@@ -10,7 +10,7 @@ class DatabaseService {
 
   factory DatabaseService() {
     return _instance;
-  } 
+  }
 
   DatabaseService._internal() {
     if (!kIsWeb) {
@@ -30,9 +30,9 @@ class DatabaseService {
       debugPrint('SQLite não disponível no Web - operação ignorada');
       return null;
     }
-    
+
     if (_database != null) return _database!;
-    
+
     try {
       _database = await _initDatabase();
       return _database;
@@ -42,19 +42,14 @@ class DatabaseService {
     }
   }
 
-    Future<Database> _initDatabase() async {
+  Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), 'agendamento.db');
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _onCreate,
-    );
+    return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
-
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE users (
       id TEXT PRIMARY KEY,
       email TEXT NOT NULL,
@@ -62,7 +57,7 @@ class DatabaseService {
     )
   ''');
 
- await db.execute('''
+    await db.execute('''
     CREATE TABLE atendentes (
       id TEXT PRIMARY KEY,
       nome TEXT NOT NULL,
@@ -71,7 +66,7 @@ class DatabaseService {
     )
   ''');
 
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE servicos (
       id TEXT PRIMARY KEY,
       nome TEXT NOT NULL,
@@ -80,8 +75,8 @@ class DatabaseService {
       ativo INTEGER NOT NULL DEFAULT 1
     )
   ''');
-  
-  await db.execute('''
+
+    await db.execute('''
     CREATE TABLE agendamentos (
       id TEXT PRIMARY KEY,
       clienteId TEXT NOT NULL,
@@ -104,11 +99,11 @@ class DatabaseService {
       debugPrint('SQLite não disponível no Web - operação ignorada');
       return;
     }
-    
+
     try {
       final db = await database;
       if (db == null) return;
-      
+
       await db.insert(
         'users',
         user.toMap(),
@@ -120,22 +115,22 @@ class DatabaseService {
     }
   }
 
-    Future<UserModel?> getUser(String id) async {
+  Future<UserModel?> getUser(String id) async {
     if (kIsWeb) {
       debugPrint('SQLite não disponível no Web');
       return null;
     }
-    
+
     try {
       final db = await database;
       if (db == null) return null;
-      
+
       final List<Map<String, dynamic>> maps = await db.query(
         'users',
         where: 'id = ?',
         whereArgs: [id],
       );
-      
+
       if (maps.isEmpty) return null;
       return UserModel.fromMap(maps.first);
     } catch (e) {
@@ -146,16 +141,12 @@ class DatabaseService {
 
   Future<void> deleteUser(String id) async {
     if (kIsWeb) return;
-    
+
     try {
       final db = await database;
       if (db == null) return;
-      
-      await db.delete(
-        'users',
-        where: 'id = ?',
-        whereArgs: [id],
-      );
+
+      await db.delete('users', where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       debugPrint('Erro ao deletar do SQLite: $e');
     }
@@ -163,11 +154,11 @@ class DatabaseService {
 
   Future<void> clearAllData() async {
     if (kIsWeb) return;
-    
+
     try {
       final db = await database;
       if (db == null) return;
-      
+
       await db.delete('users');
       await db.delete('atendentes');
       await db.delete('servicos');

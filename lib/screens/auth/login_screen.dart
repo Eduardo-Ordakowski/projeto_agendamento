@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -67,12 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Logo/Título
-                  Icon(
-                    Icons.calendar_month,
-                    size: 80,
-                    color: Colors.blue,
-                  ),
+                  Icon(Icons.calendar_month, size: 80, color: Colors.blue),
                   const SizedBox(height: 16),
                   Text(
                     'Sistema de Agendamento',
@@ -84,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 48),
 
-                  // Campo Email
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -105,7 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Campo Senha
                   TextFormField(
                     controller: _passwordController,
                     obscureText: true,
@@ -126,7 +119,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // Botão Login
                   SizedBox(
                     width: double.infinity,
                     height: 50,
@@ -142,13 +134,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? CircularProgressIndicator(color: Colors.white)
                           : Text(
                               'Entrar',
-                              style: TextStyle(fontSize: 16, color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
                             ),
                     ),
                   ),
                   const SizedBox(height: 16),
 
-                  // Link para cadastro
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
