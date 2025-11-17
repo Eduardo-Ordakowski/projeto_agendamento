@@ -17,7 +17,7 @@ class ServicoListScreen extends StatelessWidget{
       ),
       
       body: StreamBuilder<List<ServicoModel>> (
-        stream: _servicoService.getServicosAsync(),
+        stream: _servicoService.getAllServicos(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
