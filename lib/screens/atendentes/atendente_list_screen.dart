@@ -33,7 +33,7 @@ class AtendenteListScreen extends StatelessWidget{
                   Icon(Icons.error_outline, size: 80, color: Colors.red),
                   SizedBox(height: 16),
                   Text(
-                    'Erro ao carregar antendetes',
+                    'Erro ao carregar atendentes',
                     style: TextStyle(fontSize: 18, color: Colors.red),
                   ),
                   SizedBox(height: 8),
