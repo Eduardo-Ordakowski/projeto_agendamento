@@ -19,7 +19,7 @@ class ServicoModel {
       nome: map['nome'] as String,
       duracaoMinutos: map['duracaoMinutos'] as int,
       preco: map['preco'] as double,
-      ativo: map['ativo'] == 1,
+      ativo: map['ativo'] == true || map['ativo'] == 1, 
     );
   }
 
@@ -29,7 +29,7 @@ class ServicoModel {
       'nome': nome,
       'duracaoMinutos': duracaoMinutos,
       'preco': preco,
-      'ativo': ativo ? 1 : 0,
+      'ativo': ativo == true ? true : false,
     };
   }
 
