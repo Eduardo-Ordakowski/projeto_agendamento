@@ -6,7 +6,7 @@ class ServicoService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String _collection = 'servicos';
 
-  Stream<List<ServicoModel>> getServicosAll() {
+  Stream<List<ServicoModel>> getAllServicos() {
     try {
       return _firestore.collection(_collection)
         .orderBy('nome')
