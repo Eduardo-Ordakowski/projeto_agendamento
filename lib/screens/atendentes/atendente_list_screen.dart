@@ -17,7 +17,7 @@ class AtendenteListScreen extends StatelessWidget{
       ),
 
       body: StreamBuilder<List<AtendenteModel>>(
-        stream: _atendenteService.getAtendentesAtivos(),
+        stream: _atendenteService.getAllAtendentes(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
